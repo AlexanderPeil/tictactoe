@@ -82,25 +82,24 @@ table tr td:last-child {
     width: 400px;
     position: absolute;
     top: 0;
-    transform: scaleX(0.0);
+    transform: scale(0);
     transition: transform 225ms ease-in-out;
     z-index: 1;
 }
 
 .make-vertical {
-    transform: rotate(90deg) scaleX(0.0);
-    transition: transform 225ms ease-in-out;
+    transform: rotate(90deg) scale(0);
 }
 
 .game-over {
     position: absolute;
     left: 0;
     right: 0;
-    width: 100%;
+    width: 100vw;
     z-index: 2;
     animation: zoomIn 225ms ease-in-out;
 }
-
+/* Animation for the gameover img */
 @keyframes zoomIn {
     from{
         opacity: 0;
@@ -128,4 +127,18 @@ table tr td:last-child {
 
 .restart-btn:hover {
     background-color: rgb(59, 40, 168);
+}
+
+.container {
+    position: relative;
+}
+
+@media(max-width: 500px) {
+    .player-panel {
+        flex-direction: column;
+    }
+    
+    #player-1 {
+        margin-bottom: 30px;
+    }
 }

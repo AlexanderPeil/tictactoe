@@ -4,7 +4,7 @@ let currentShape = 'cross';
 
 
 function fillShape(id) {
-    if (!fields[id] && !gameOver) { // mit dem ! machen wir das zu true, da es vorher auf false war
+    if (!fields[id] && !gameOver) { // With ! we make it true, if the field was undefined before (false)
         if (currentShape == 'cross') {
             currentShape = 'circle';
             document.getElementById('player-1').classList.add('player-inactive');
@@ -29,12 +29,12 @@ function restart() {
     document.getElementById('restart-btn').classList.add('d-none');
 
     for (let i = 0; i < 7; i++) {
-        document.getElementById('line-' + i).classList.add('d-none');
+        document.getElementById(`line-${i}`).classList.add('d-none');
     }
 
     for (let i = 0; i < 9; i++) {
-        document.getElementById('circle-' + i).classList.add('d-none');
-        document.getElementById('cross-' + i).classList.add('d-none');
+        document.getElementById(`circle-${i}`).classList.add('d-none');
+        document.getElementById(`cross-${i}`).classList.add('d-none');
     }
 }
 
@@ -42,13 +42,13 @@ function restart() {
 function draw() {
     for (let i = 0; i < fields.length; i++) {
         if (fields[i] == 'circle') {
-            document.getElementById('circle-' + i).classList.remove('d-none');
+            document.getElementById(`circle-${i}`).classList.remove('d-none');
         }
     }
 
     for (let i = 0; i < fields.length; i++) {
         if (fields[i] == 'cross') {
-            document.getElementById('cross-' + i).classList.remove('d-none');
+            document.getElementById(`cross-${i}`).classList.remove('d-none');
         }
     }
 }
@@ -97,15 +97,22 @@ function checkForWin() {
         document.getElementById('line-7').style.transform = 'rotate(-45deg) scaleX(1.3)';
     }
 
-    if (winner) {
-        console.log('Gewonnen:', winner)
-        gameOver = true;
-        setTimeout(function() {
-            document.getElementById('game-over').classList.remove('d-none');
-            document.getElementById('restart-btn').classList.remove('d-none');
-        }, 3000);     
-    }
+    restartGame(winner);
 }
+
+
+function restartGame(winner) {
+    if (winner) {
+    // console.log('Gewonnen:', winner)
+    gameOver = true;
+    setTimeout(function() {
+        document.getElementById('game-over').classList.remove('d-none');
+        document.getElementById('restart-btn').classList.remove('d-none');
+    }, 3000);     
+}
+}
+
+
 // Evaluieren = Auswerten
 // 'circle' == 'circle' // true
 // 'circle' == 'cross' // false
