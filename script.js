@@ -3,10 +3,14 @@ let gameOver = false;
 let currentShape = 'cross';
 
 
+/**
+ * Checks whether the "fields" object has a property with the key "id" and whether the "gameOver" variable is false. If both of these conditions are true, the code inside the if statement will execute.
+ * @param {number} id - Every field has an own id. Checks, wich field was clicked.
+ */
 function fillShape(id) {
-    if (!fields[id] && !gameOver) { // With ! we make it true, if the field was undefined before (false)
+    if (!fields[id] && !gameOver) { // With ! we make it true, if the field was undefined before (false). Checks whether the "fields" object has a property with the key "id", and whether the "gameOver" variable is false. If both of these conditions are true, the code inside the if statement will execute.
         if (currentShape == 'cross') {
-            currentShape = 'circle';
+            currentShape = 'circle'; //If the conditions are met, the function determines whether the current shape is a "cross" or a "circle". If it is a cross, the current shape is changed to a circle, and the CSS class "player-inactive" is added to the "player-1" element and removed from the "player-2" element. If it is a circle, the current shape is changed to a cross, and the CSS class "player-inactive" is added to the "player-2" element and removed from the "player-1" element.
             document.getElementById('player-1').classList.add('player-inactive');
             document.getElementById('player-2').classList.remove('player-inactive');
         } else {
@@ -14,14 +18,15 @@ function fillShape(id) {
             document.getElementById('player-1').classList.remove('player-inactive');
             document.getElementById('player-2').classList.add('player-inactive');
         }
-
         fields[id] = currentShape;
         draw();
         checkForWin();
     }
 }
 
-
+/**
+ * It resets the game by setting the "gameOver" variable to false, emptying the "fields" array, and hiding several HTML elements. 
+ */
 function restart() {
     gameOver = false;
     fields = [];
@@ -39,6 +44,9 @@ function restart() {
 }
 
 
+/**
+ * This function checks if the clicked field is whether a circle or a cross. Then it makes the "right" of them visible. 
+ */
 function draw() {
     for (let i = 0; i < fields.length; i++) {
         if (fields[i] == 'circle') {
@@ -54,6 +62,9 @@ function draw() {
 }
 
 
+/**
+ * This function checks if one of the player has won. In this case a line will be drawn across the "win-line fields".
+ */
 function checkForWin() {
     let winner;
     // First row
@@ -100,16 +111,19 @@ function checkForWin() {
     restartGame(winner);
 }
 
-
+/**
+ * It takes in a parameter "winner" which represents the winning player. If the "winner" parameter is truthy, the function sets the "gameOver" variable to true and shows the game over message and the restart button after a delay of 3 seconds using the "setTimeout" function.
+ * @param {*} winner - Set the gameOver to true. 
+ */
 function restartGame(winner) {
     if (winner) {
-    // console.log('Gewonnen:', winner)
-    gameOver = true;
-    setTimeout(function() {
-        document.getElementById('game-over').classList.remove('d-none');
-        document.getElementById('restart-btn').classList.remove('d-none');
-    }, 3000);     
-}
+        // console.log('Gewonnen:', winner)
+        gameOver = true;
+        setTimeout(function () {
+            document.getElementById('game-over').classList.remove('d-none');
+            document.getElementById('restart-btn').classList.remove('d-none');
+        }, 3000);
+    }
 }
 
 
